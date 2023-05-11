@@ -33,6 +33,6 @@ def Transmit(k,n,a,myu):
 n = [mpz(11),mpz(13),mpz(17),mpz(19),mpz(23),mpz(29)]
 a = [mpz(8),mpz(2),mpz(6),mpz(7),mpz(12),mpz(19)]
 myu = mpq(2,3)
-k = mpz(6)
+k = mpz(len(n))
 
 print(Transmit(k,n,a,myu))
