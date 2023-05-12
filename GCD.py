@@ -1,8 +1,10 @@
 import gmpy2
+
 from gmpy2 import mpz
+
 gmpy2.set_context(gmpy2.context())
 
-def egcd(a,b):
+def binary_egcd(a,b):
     
     r = mpz(a)
     r_d = mpz(b)
@@ -47,6 +49,14 @@ def egcd(a,b):
     d = ((1 << e) * r)
     return (d,s,t)
 
-print(egcd(mpz(962),mpz(104)))
-        
 
+def egcd(a,b):
+    r = mpz(a)
+    r_d = mpz(b)
+    s, s_d, t, t_d = mpz(1), mpz(0), mpz(0), mpz(1)
+    while(r_d != 0):
+        q = mpz(r // r_d)
+        r_dd = mpz(r % r_d)
+        r, s, t, r_d, s_d, t_d = r_d, s_d, t_d, r_dd, mpz(s - (s_d * q)), mpz(t - (t_d * q))
+    d = mpz(r)
+    return d, s, t
