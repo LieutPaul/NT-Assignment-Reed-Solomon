@@ -1,4 +1,4 @@
-from gmpy2 import mpz,mpq
+from gmpy2 import mpz,mpq,next_prime
 import random
 from math import floor
 
@@ -82,21 +82,20 @@ def CRT(a,n):
     return mpz(x)
 
 def GlobalSetup(mu,M):
-    l=[] #This is the list of primes
-    ni=mpz(2)
+    l = [] #This is the list of primes
+    ni = mpz(2)
     product_of_primes = mpz(1)
     found = False
     while(ni < M and len(l) < 500):
-        if(ni.is_prime()):
-            product_of_primes *= ni
-            l.append(ni)
-            L = mpz(floor(mu*mpz(len(l))))
-            P = mpz(1)
-            for j in range(L):
-                P *= l[-j - 1]
-            if(product_of_primes > 2 * M * P * P):
-                break
-        ni += 1
+        product_of_primes *= ni
+        l.append(ni)
+        L = mpz(floor(mu*mpz(len(l))))
+        P = mpz(1)
+        for j in range(L):
+            P *= l[-j - 1]
+        if(product_of_primes > 2 * M * P * P):
+            break
+        ni = next_prime(ni)
     return l
 
 def Transmit(k,n,a,myu):
@@ -146,9 +145,9 @@ def ReedSolomonReceive(msglist, n, M, mu):
     else:
         return "ERROR"
 
-mu = mpq(2,10)
-M = mpz(10000000000001)
-a = mpz(999967899)
+mu = mpq(4,13)
+M = mpz(1000000000000000000000000001)
+a = mpz(999967892342234242234124349)
 l = GlobalSetup(mu,M) # l is the list of primes
 b = ReedSolomonSend(a,l,mu)
 print(ReedSolomonReceive(b,l,M,mu))
