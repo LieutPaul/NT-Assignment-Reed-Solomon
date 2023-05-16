@@ -83,26 +83,21 @@ def CRT(a,n):
 
 def GlobalSetup(mu,M):
     l=[] #This is the list of primes
-    i=mpz(2)
+    ni=mpz(2)
     product_of_primes = mpz(1)
     found = False
-    while(i<M):
-        ni = mpz(i)
+    while(ni < M and len(l) < 500):
         if(ni.is_prime()):
-            product_of_primes *= i
+            product_of_primes *= ni
             l.append(ni)
             L = mpz(floor(mu*mpz(len(l))))
             P = mpz(1)
             for j in range(L):
                 P *= l[-j - 1]
             if(product_of_primes > 2 * M * P * P):
-                found = True
                 break
-        i = i + 1
-    if found:
-        return l
-    else:
-        return []
+        ni += 1
+    return l
 
 def Transmit(k,n,a,myu):
     
@@ -146,16 +141,14 @@ def ReedSolomonReceive(msglist, n, M, mu):
     for i in n:
         product_of_n *= i    
     r,s,t = egcd(product_of_n,b,r_star)
-    if(r%t==0):
+    if(r % t == 0):
         return mpz(r//t)
     else:
         return "ERROR"
 
-mu = mpq(3,10)
-M = mpz(10000001)
-a = mpz(9999999)
+mu = mpq(2,10)
+M = mpz(10000000000001)
+a = mpz(999967899)
 l = GlobalSetup(mu,M) # l is the list of primes
-print(l)
 b = ReedSolomonSend(a,l,mu)
-print(b)
 print(ReedSolomonReceive(b,l,M,mu))
