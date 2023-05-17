@@ -102,7 +102,7 @@ def Transmit(k,n,a,myu):
     
     b = []
 
-    l = mpz(random.randint(1,mpz(myu*k))) # mpz(myu,k) will turn it into an integer
+    l = mpz(random.randint(0,mpz(myu*k))) # mpz(myu,k) will turn it into an integer
     
     I = [] # I is the set of bad indices
     
@@ -145,9 +145,9 @@ def ReedSolomonReceive(msglist, n, M, mu):
     else:
         return "ERROR"
 
-mu = mpq(4,13)
-M = mpz(1000000000000000000000000001)
-a = mpz(999967892342234242234124349)
+mu = mpq(9,10)
+M = mpz(1000000000000000000000000)
+a = mpz(999284728371873811238967)
 l = GlobalSetup(mu,M) # l is the list of primes
 b = ReedSolomonSend(a,l,mu)
 print(ReedSolomonReceive(b,l,M,mu))
