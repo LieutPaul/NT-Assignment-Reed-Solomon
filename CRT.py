@@ -24,4 +24,6 @@ def CRT(a,n):
         
         x += mpz( mpz(a[i] * N_k * x_k) % mpz(N) )
     
-    return mpz(x)
+    return mpz(x) % mpz(N)
+
+print(CRT([0,2,0,1,2],[2,3,5,7,11]))

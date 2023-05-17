@@ -50,7 +50,7 @@ def binary_egcd(a,b):
     return (d,s,t)
 
 
-def egcd(a,b):
+def egcd(a,b,r_star):
     r = mpz(a)
     r_d = mpz(b)
     s, s_d, t, t_d = mpz(1), mpz(0), mpz(0), mpz(1)
@@ -58,5 +58,8 @@ def egcd(a,b):
         q = mpz(r // r_d)
         r_dd = mpz(r % r_d)
         r, s, t, r_d, s_d, t_d = r_d, s_d, t_d, r_dd, mpz(s - (s_d * q)), mpz(t - (t_d * q))
-    d = mpz(r)
-    return d, s, t
+        if(r <= r_star):
+            return r,s,t
+    return (-1,-1,-1)
+
+print(egcd(2310,1520,(1<<1024)))
